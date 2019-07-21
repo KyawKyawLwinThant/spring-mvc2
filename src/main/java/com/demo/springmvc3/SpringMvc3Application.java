@@ -29,6 +29,7 @@ public class SpringMvc3Application {
   @Bean @Profile("dev")
   public CommandLineRunner run(){
     return args -> {
+      logger.info("Welcome Spring MVC.");
       logger.error("sample logger message");
       logger.info("sample logger message");
       logger.warn("sample logger message");
