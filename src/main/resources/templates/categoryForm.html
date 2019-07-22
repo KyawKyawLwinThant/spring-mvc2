@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="layout/master.html">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="context">
+
+        <form action="#" th:action="@{/category}" th:object="${category}" method="post">
+
+            <div class="form-group">
+                <label for="name">Category Name</label>
+                <input type="text"
+                       th:field="*{name}"
+                       class="form-control" name="" id="name" aria-describedby="helpId" placeholder="Enter Name...">
+                <small th:if="${#fields.errors('name')}"
+                       th:errors="*{name}" class="text-danger"></small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+
+        </form>
+
+    </div>
+</body>
+</html>
