@@ -8,10 +8,11 @@
 </head>
 <body>
     <div layout:fragment="context">
+
         <a href="#" th:href="@{'/category/?lang=us'}">English</a>|
-        <a href="#" th:href="@{'/category/?lang=fr'}">French |
-            <a href="#" th:href="@{'/category/?lang=de'}">German</a>   |
-            <a href="#" th:href="@{'/category/?lang=ja'}">Myanmar</a>
+        <a href="#" th:href="@{'/category/?lang=fr'}">French </a> |
+        <a href="#" th:href="@{'/category/?lang=de'}">German</a>   |
+        <a href="#" th:href="@{'/category/?lang=ja'}">Myanmar</a>
 
 
         <form action="#" th:action="@{/category}" th:object="${category}" method="post">
@@ -31,5 +32,6 @@
         </form>
 
     </div>
+
 </body>
 </html>
