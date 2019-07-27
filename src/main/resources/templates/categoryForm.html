@@ -8,11 +8,16 @@
 </head>
 <body>
     <div layout:fragment="context">
+        <a href="#" th:href="@{'/category/?lang=us'}">English</a>|
+        <a href="#" th:href="@{'/category/?lang=fr'}">French |
+            <a href="#" th:href="@{'/category/?lang=de'}">German</a>   |
+            <a href="#" th:href="@{'/category/?lang=ja'}">Myanmar</a>
+
 
         <form action="#" th:action="@{/category}" th:object="${category}" method="post">
 
             <div class="form-group">
-                <label for="name">Category Name</label>
+                <label for="name" th:text="#{cateory.name}"></label>
                 <input type="text"
                        th:field="*{name}"
                        class="form-control" name="" id="name" aria-describedby="helpId" placeholder="Enter Name...">

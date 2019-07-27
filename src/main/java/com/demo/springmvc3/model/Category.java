@@ -14,6 +14,6 @@ public class Category implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  @NotEmpty(message = "Name cannot be empty!")
+  @NotEmpty(message = "{name.validation.msg}")
   private String name;
 }
