@@ -11,4 +11,8 @@ public interface ProductService {
   List<Product> findAll();
 
   Product findById(int id);
+
+  void delete(int id);
+
+  void update(Product product,int id);
 }

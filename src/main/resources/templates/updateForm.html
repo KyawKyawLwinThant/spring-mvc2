@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/master.html">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="context">
+
+    <form action="#" th:action="@{/products/update}" th:object="${product}" method="post">
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name"
+                   th:field="*{name}"
+                   class="form-control">
+            <small th:if="${#fields.errors('name')}" th:errors="*{name}" class="form-text text-danger"></small>
+        </div>
+
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number"
+                   th:field="*{price}"
+                   step="any"
+                   class="form-control" name="" id="price" aria-describedby="helpId" placeholder="">
+            <small  th:if="${#fields.errors('price')}" th:errors="*{price}" class="form-text text-danger"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number"
+                   th:field="*{quantity}"
+                   class="form-control" name="" id="quantity" aria-describedby="helpId" placeholder="">
+            <small th:if="${#fields.errors('quantity')}" th:errors="*{quantity}" class="form-text text-danger"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="lu">Last Updated.</label>
+            <input type="date"
+                   th:field="*{lastUpdted}"
+                   class="form-control" name="" id="lu" aria-describedby="helpId" placeholder="">
+
+        </div>
+
+
+        <div class="form-group">
+            <label for="Category">Category</label>
+            <select class="form-control" th:field="*{category}" name="" id="Category">
+                <option th:each="cat :${categories}"
+                        th:value="${cat.id}" th:text="${cat.name}"></option>
+
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Update Product</button>
+
+    </form>
+
+</div>
+</body>
+</html>

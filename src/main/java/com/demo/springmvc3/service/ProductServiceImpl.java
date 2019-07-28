@@ -4,11 +4,12 @@ import com.demo.springmvc3.model.Product;
 import com.demo.springmvc3.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+        public class ProductServiceImpl implements ProductService {
 
   @Autowired
   private ProductRepository productRepository;
@@ -26,5 +27,21 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public Product findById(int id) {
     return productRepository.getOne(id);
+  }
+
+  @Override
+  public void delete(int id) {
+    productRepository.deleteById(id);
+  }
+
+  @Override
+  @Transactional
+  public void update(Product newProduct, int id) {
+       Product product=findById(id);
+       product.setCategory(newProduct.getCategory());
+       product.setLastUpdted(newProduct.getLastUpdted());
+       product.setName(newProduct.getName());
+       product.setPrice(newProduct.getPrice());
+       product.setQuantity(newProduct.getQuantity());
   }
 }
