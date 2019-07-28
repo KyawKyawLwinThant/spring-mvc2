@@ -1,11 +1,13 @@
 package com.demo.springmvc3.service;
 
+import com.demo.springmvc3.exception.MyEntityNotFoundException;
 import com.demo.springmvc3.model.Product;
 import com.demo.springmvc3.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -26,7 +28,8 @@ import java.util.List;
 
   @Override
   public Product findById(int id) {
-    return productRepository.getOne(id);
+    return productRepository
+            .findById(id).orElseThrow(()->new EntityNotFoundException(id + " Not Found!"));
   }
 
   @Override

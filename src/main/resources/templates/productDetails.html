@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/master.html">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="context">
+        <div class="row">
+            <div class="col col-md-6">
+                <p>Name</p>
+                <p>Price</p>
+                <p>Quantity</p>
+                <p>Last Updated</p>
+                <p>Category Name</p>
+            </div>
+            <div class="col col-md-6">
+                <p th:text="${product.name}"></p>
+                <p th:text="${product.price}"></p>
+                <p th:text="${product.quantity}"></p>
+                <p th:text="${product.lastUpdted}"></p>
+                <p th:text="${product.category.name}"></p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

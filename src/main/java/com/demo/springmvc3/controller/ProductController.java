@@ -1,19 +1,24 @@
 package com.demo.springmvc3.controller;
 
+import com.demo.springmvc3.exception.MyEntityNotFoundException;
 import com.demo.springmvc3.model.Product;
 import com.demo.springmvc3.service.CategoryService;
 import com.demo.springmvc3.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @Controller
+
 public class ProductController {
 
    @Autowired
@@ -69,6 +74,19 @@ public class ProductController {
       return "redirect:/products";
     }
 
+    @GetMapping("/products/details/{id}")
+    public String details(@PathVariable("id") int id,Model model){
+       Product product=productService.findById(id);
+       logger.info("id:"+ id);
+       logger.info("Product:"+ product);
+       model.addAttribute("product",product);
+       return "productDetails";
+    }
+
     private int updateId;
+
+
+   private static Logger logger=
+           LoggerFactory.getLogger(ProductController.class);
 
 }
