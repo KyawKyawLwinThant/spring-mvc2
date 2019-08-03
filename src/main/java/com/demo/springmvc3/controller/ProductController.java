@@ -8,18 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 
 public class ProductController {
+
 
    @Autowired
     private ProductService productService;
@@ -84,6 +88,12 @@ public class ProductController {
     }
 
     private int updateId;
+
+    @ResponseBody
+    @GetMapping(value = "/products/all",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+    public List<Product> showAllProductsRest(){
+      return productService.findAll();
+    }
 
 
    private static Logger logger=

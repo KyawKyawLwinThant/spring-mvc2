@@ -30,7 +30,7 @@
                 <td th:text="${pro.category.name}"></td>
                 <td><a href="#" class="btn btn-primary" th:href="@{'/products/'+${pro.id}}">Delete</a></td>
                 <th><a href="#" class="btn btn-primary" th:href="@{'/products/update/'+${pro.id}}">Update</a></th>
-                <th><a href="#" th:href="@{'/products/details/'+${pro.id}}">Details</a></th>
+                <th><a href="#" class="btn btn-primary" th:href="@{'/products/details/'+${pro.id}}">Details</a></th>
             </tr>
 
             </tbody>

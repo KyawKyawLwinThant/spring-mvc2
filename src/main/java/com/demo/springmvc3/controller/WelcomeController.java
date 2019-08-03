@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WelcomeController {
 
-  @GetMapping("/")
+  @GetMapping("/home")
   public String welcome(Model model){
     model.addAttribute("tagline","Welcome Spring MVC");
 

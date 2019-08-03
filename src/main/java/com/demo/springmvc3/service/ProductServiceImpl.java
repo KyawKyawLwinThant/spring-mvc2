@@ -29,7 +29,7 @@ import java.util.List;
   @Override
   public Product findById(int id) {
     return productRepository
-            .findById(id).orElseThrow(()->new EntityNotFoundException(id + " Not Found!"));
+            .findById(id).orElse(null);
   }
 
   @Override
