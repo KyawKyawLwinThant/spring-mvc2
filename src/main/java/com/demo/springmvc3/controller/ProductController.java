@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -37,7 +38,8 @@ public class ProductController {
      return "productForm";
    }
    @PostMapping("/product")
-   public String process(@Valid Product product, BindingResult result,Model model){
+   public String process(@Valid Product product, BindingResult result, Model model,
+                         RedirectAttributes redirectAttributes){
 
       if(result.hasErrors()){
         model.addAttribute("categories",categoryService.findAll());
@@ -45,6 +47,7 @@ public class ProductController {
       }
 
       productService.create(product);
+      redirectAttributes.addFlashAttribute("product1",true);
 
       return "redirect:/products";
 
@@ -52,7 +55,8 @@ public class ProductController {
    @GetMapping("/products")
    public String showAllProducts(Model model){
      model.addAttribute("products",productService.findAll());
-
+     model.addAttribute("success1",model.containsAttribute("product1"));
+     model.addAttribute("success2",model.containsAttribute("update"));
      return "products";
    }
 
@@ -72,9 +76,9 @@ public class ProductController {
     }
 
     @PostMapping("/products/update")
-    public String processUpdate(Product product){
+    public String processUpdate(Product product,RedirectAttributes redirectAttributes){
       productService.update(product,updateId);
-
+      redirectAttributes.addFlashAttribute("update",true);
       return "redirect:/products";
     }
 

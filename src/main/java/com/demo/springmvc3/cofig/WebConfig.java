@@ -1,5 +1,6 @@
 package com.demo.springmvc3.cofig;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -61,6 +62,12 @@ public class WebConfig implements WebMvcConfigurer {
     LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
     bean.setValidationMessageSource(messageSource());
     return bean;
+  }
+
+  @Bean
+  public PrettyTime prettyTime(){
+    PrettyTime prettyTime=new PrettyTime();
+    return  prettyTime;
   }
 
 
