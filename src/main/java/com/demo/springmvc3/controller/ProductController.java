@@ -7,6 +7,8 @@ import com.demo.springmvc3.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 @Controller
@@ -31,12 +35,28 @@ public class ProductController {
    @Autowired
    private CategoryService categoryService;
 
+   @GetMapping("/products/pdf")
+   public ResponseEntity<InputStreamResource> generatePdf(){
+      ByteArrayInputStream bis=PdfReport.employeePdfViews(productService.findAll());
+      HttpHeaders headers=new HttpHeaders();
+      headers.add("Content-Disposition"
+              ,"inline;filename=productsreport.pdf");
+
+      return  ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+
+
+   }
+
    @GetMapping("/product")
    public String create(Model model){
      model.addAttribute("product",new Product());
      model.addAttribute("categories",categoryService.findAll());
      return "productForm";
    }
+
    @PostMapping("/product")
    public String process(@Valid Product product, BindingResult result, Model model,
                          RedirectAttributes redirectAttributes){
