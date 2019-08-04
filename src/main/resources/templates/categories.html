@@ -8,6 +8,9 @@
 </head>
 <body>
     <div layout:fragment="context">
+        <div class="alert alert-success" role="alert" th:if="${success1}">
+            New Category successfully submitted.
+        </div>
         <table class="table">
             <thead class="table-dark bg-dark text-light">
             <tr>
