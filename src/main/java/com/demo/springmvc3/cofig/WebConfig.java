@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -69,6 +70,12 @@ public class WebConfig implements WebMvcConfigurer {
   public PrettyTime prettyTime(){
     PrettyTime prettyTime=new PrettyTime();
     return  prettyTime;
+  }
+  @Bean
+  public SpringSecurityDialect springSecurityDialect(){
+    SpringSecurityDialect springSecurityDialect=
+            new SpringSecurityDialect();
+    return springSecurityDialect;
   }
 
 

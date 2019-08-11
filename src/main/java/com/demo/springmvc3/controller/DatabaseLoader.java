@@ -26,7 +26,7 @@ public class DatabaseLoader implements CommandLineRunner {
   public void run(String... args) throws Exception {
 
     Role adminRole=new Role("ROLE_ADMIN");
-    Role userRole=new Role("USER_USER");
+    Role userRole=new Role("ROLE_USER");
 
     User adminUser=new User("adminmail@gmail.com","Kyaw","Lwin",passwordEncoder.encode("kyaw"));
     User userUser=new User("usermail@gmail.com","Thaw","Thaw",passwordEncoder.encode("thaw"));

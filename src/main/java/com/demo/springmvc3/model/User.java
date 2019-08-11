@@ -1,11 +1,17 @@
 package com.demo.springmvc3.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
-public class User {
+public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -17,7 +23,7 @@ public class User {
   @Transient
   private String confirmPassword;
   @Transient
-  private boolean enable;
+  private boolean enable=true;
 
   @ManyToMany(fetch = FetchType.EAGER)
   private List<Role> roles=new ArrayList<>();
@@ -74,8 +80,40 @@ public class User {
     this.enable = enable;
   }
 
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return roles.stream().map(a -> new SimpleGrantedAuthority(a.getName()))
+            .collect(Collectors.toSet());
+
+  }
+
   public String getPassword() {
     return password;
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return enable;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return enable;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return enable;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return enable;
   }
 
   public void setPassword(String password) {
