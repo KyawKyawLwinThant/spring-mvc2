@@ -77,6 +77,7 @@ public class ProductController {
      model.addAttribute("products",productService.findAll());
      model.addAttribute("success1",model.containsAttribute("product1"));
      model.addAttribute("success2",model.containsAttribute("update"));
+     model.addAttribute("register",model.containsAttribute("register"));
      return "products";
    }
 
