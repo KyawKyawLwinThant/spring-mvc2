@@ -11,7 +11,12 @@ public class User {
   private Integer id;
 
   private String email;
+  private String firstName;
+  private String lastName;
   private String password;
+  @Transient
+  private String confirmPassword;
+  @Transient
   private boolean enable;
 
   @ManyToMany(fetch = FetchType.EAGER)
@@ -20,12 +25,22 @@ public class User {
   public User() {
   }
 
-  public User( String email,String password, boolean enable) {
-
+  public User(String email, String firstName, String lastName, String password) {
     this.email = email;
-    this.enable = enable;
-    this.password=password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.password = password;
   }
+
+
+  public void addRole(Role role){
+    roles.add(role);
+  }
+
+  public void addRoles(List<Role> roles){
+    this.roles.addAll(roles);
+  }
+
 
   public Integer getId() {
     return id;
@@ -65,5 +80,29 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getConfirmPassword() {
+    return confirmPassword;
+  }
+
+  public void setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
   }
 }

@@ -19,28 +19,13 @@ public class SpringMvc3Application {
   private static Logger
           logger= LoggerFactory.getLogger(SpringMvc3Application.class);
 
-  @Autowired
-  private ApplicationContext applicationContext;
+
 
   public static void main(String[] args) {
     SpringApplication.run(SpringMvc3Application.class, args);
   }
 
-  @Bean @Profile("dev")
-  public CommandLineRunner run(){
-    return args -> {
-      logger.info("Welcome Spring MVC.");
-      logger.error("sample logger message");
-      logger.info("sample logger message");
-      logger.warn("sample logger message");
-      logger.trace("sample logger message");
-      logger.debug("sample logger message");
 
-      Arrays.stream(this.applicationContext.getBeanDefinitionNames())
-              .sorted()
-              .forEach(System.out::println);
-    };
-  }
 
 
 

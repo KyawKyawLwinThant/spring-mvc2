@@ -6,10 +6,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 @Configuration
 @EnableWebSecurity
-public class webSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-
+    http
+            .authorizeRequests()
+            .antMatchers("/resources/**","/products","/").permitAll()
+            .antMatchers("/category").hasRole("ADMIN")
+            .antMatchers("/product").hasRole("ADMIN")
+           // .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .and()
+            .httpBasic();
   }
 }
