@@ -1,9 +1,9 @@
 package com.demo.springmvc3.model;
 
+import com.demo.springmvc3.validation.PasswordNotSame;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+//@PasswordNotSame(message = "password not same!")
 public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

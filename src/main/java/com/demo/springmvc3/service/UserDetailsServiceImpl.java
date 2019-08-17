@@ -8,6 +8,7 @@ import com.demo.springmvc3.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,9 +20,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
   private RoleRepository roleRepository;
 
-  public UserDetailsServiceImpl(UserRepository userRepository,RoleRepository roleRepository) {
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+  public UserDetailsServiceImpl(UserRepository userRepository,RoleRepository roleRepository
+  ,BCryptPasswordEncoder bCryptPasswordEncoder) {
     this.userRepository = userRepository;
     this.roleRepository = roleRepository;
+    this.bCryptPasswordEncoder=bCryptPasswordEncoder;
   }
 
   @Override
@@ -36,6 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
   public User register(User user){
     Role role=roleRepository.findByName("ROLE_ADMIN");
+    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     user.addRole(role);
     role.getUsers().add(user);
     return userRepository.save(user);
