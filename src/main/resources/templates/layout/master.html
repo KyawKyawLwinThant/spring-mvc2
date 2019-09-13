@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -13,7 +14,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
           href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
-
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <!-- Custom styles for this template -->
     <style>
         body {
@@ -46,19 +47,26 @@
           <li class="nav-item">
             <a class="nav-link" href="#" th:href="@{/product}">Product Form</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
+
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
+
+        <li class="nav-item">
+          <form method="POST" th:action="@{/logout}" sec:authorize="isAuthenticated()">
+            <button class="nav-link text-light bg-dark border-0"><i class="fa fa-sign-out-alt" aria-hidden="true"></i> Sign Out</button>
+          </form>
+        </li>
+
+        <!-- if user is not signed in -->
+        <li class="nav-item" sec:authorize="!isAuthenticated()">
+          <a class="nav-link text-light" th:href="@{/login}">
+            <i class="fa fa-sign-in-alt" aria-hidden="true"></i> Sign In</a>
+        </li>
+        <li class="nav-item" sec:authorize="!isAuthenticated()">
+          <a class="nav-link text-light" th:href="@{/register}">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>Register</a>
+        </li>
+
       </div>
     </nav>
 

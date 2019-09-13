@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,9 +20,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.Locale;
 
 @Configuration
@@ -69,9 +72,15 @@ public class WebConfig implements WebMvcConfigurer {
     PrettyTime prettyTime=new PrettyTime();
     return  prettyTime;
   }
+  @Bean
+  public SpringSecurityDialect springSecurityDialect(){
+    SpringSecurityDialect springSecurityDialect=
+            new SpringSecurityDialect();
+    return springSecurityDialect;
+  }
 
 
-  @ExceptionHandler(EntityNotFoundException.class)
+  @ExceptionHandler({EntityNotFoundException.class, ConstraintViolationException.class})
   public ModelAndView
   handleEntityNotFoundException(EntityNotFoundException ex, HttpServletRequest request){
 
@@ -82,6 +91,12 @@ public class WebConfig implements WebMvcConfigurer {
     mv.setViewName("notFound");
 
     return mv;
+  }
+
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+    return bCryptPasswordEncoder;
   }
 
 
